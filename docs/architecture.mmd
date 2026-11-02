@@ -1,0 +1,18 @@
+flowchart LR
+    S([8:45 AM weekday schedule]) --> A
+    subgraph Sources
+        E[Outlook<br/>direct emails from coworkers]
+        T[Freshservice<br/>my open + pending tickets]
+        K[Slack<br/>DMs, @mentions, team channel]
+    end
+    E --> F
+    T --> F
+    K --> F
+    A[AI agent<br/>read-only] --> E & T & K
+    F[Filter noise<br/>alerts, bots, already answered] --> D[Merge + de-duplicate]
+    D --> R[Rank<br/>Now / Today / This week / FYI]
+    R --> X[Per item: summary,<br/>fix steps + runbook, draft reply]
+    X --> O1[Branded HTML brief]
+    X --> O2[Chat summary]
+    X --> O3[Phone push]
+    O1 & O2 & O3 --> H{{Human approves<br/>any reply}}
